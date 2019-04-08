@@ -152,7 +152,7 @@ object GlobalFlag {
       //we don't hide the real issue that a developer just added an unparseable arg.
       case e: Throwable =>
         log.log(java.util.logging.Level.SEVERE, "failure reading in flags", e)
-        new ArrayBuffer[Flag[_]]
+        Nil
     }
   }
 
@@ -182,6 +182,6 @@ object GlobalFlag {
         case _: IllegalStateException | _: NoClassDefFoundError | _: ClassNotFoundException =>
       }
     }
-    flags
+    flags.toSeq
   }
 }

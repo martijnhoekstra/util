@@ -394,6 +394,23 @@ object Promise {
       }
     }
 
+    /**
+   * Create a promise that interrupts all of `fs`. In particular:
+   * the returned promise handles an interrupt when any of `fs` do.
+   *
+   * @see [[interrupts(Future)]]
+   * @see [[interrupts(Future, Future)]]
+   */
+  def interruptsSeq[A](fs: collection.Seq[Future[_]]): Promise[A] =
+    new Promise[A] with InterruptHandler {
+      protected def onInterrupt(t: Throwable): Unit = {
+        val it = fs.iterator
+        while (it.hasNext) {
+          it.next().raise(t)
+        }
+      }
+    }
+
   /**
    * Create a derivative promise that will be satisfied with the result of the
    * parent.

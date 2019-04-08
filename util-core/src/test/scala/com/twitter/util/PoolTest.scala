@@ -1,6 +1,7 @@
 package com.twitter.util
 
 import scala.collection.mutable
+import scala.collection.Seq
 
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
@@ -10,6 +11,7 @@ import com.twitter.conversions.DurationOps._
 
 @RunWith(classOf[JUnitRunner])
 class PoolTest extends WordSpec {
+  
   "SimplePool" should {
     "with a simple queue of items" should {
       "it reseves items in FIFO order" in {

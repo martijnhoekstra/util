@@ -17,12 +17,12 @@ val jacksonVersion = "2.9.6"
 val guavaLib = "com.google.guava" % "guava" % "19.0"
 val caffeineLib = "com.github.ben-manes.caffeine" % "caffeine" % "2.3.4"
 val jsr305Lib = "com.google.code.findbugs" % "jsr305" % "2.0.1"
-val scalacheckLib = "org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
+val scalacheckLib = "org.scalacheck" %% "scalacheck" % "1.14.0" % "test"
 val slf4jApi = "org.slf4j" % "slf4j-api" % slf4jVersion
 
 val defaultProjectSettings = Seq(
   scalaVersion := "2.12.8",
-  crossScalaVersions := Seq("2.11.12", "2.12.8")
+  crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.0-RC1")
 )
 
 val baseSettings = Seq(
@@ -30,12 +30,22 @@ val baseSettings = Seq(
   organization := "com.twitter",
   // Workaround for a scaladoc bug which causes it to choke on empty classpaths.
   unmanagedClasspath in Compile += Attributed.blank(new java.io.File("doesnotexist")),
+  scalafixDependencies += "org.scala-lang.modules" %% "scala-collection-migrations" % "1.0.0",
   libraryDependencies ++= Seq(
     // See http://www.scala-sbt.org/0.13/docs/Testing.html#JUnit
+    "org.scala-lang.modules" %% "scala-collection-compat" % "1.0.0", //2.11?
     "com.novocode" % "junit-interface" % "0.11" % "test",
     "org.mockito" % "mockito-all" % "1.10.19" % "test",
-    "org.scalatest" %% "scalatest" % "3.0.0" % "test"
+    "org.scalatest" %% "scalatest" % "3.0.8-RC2" % "test"
   ),
+  fork in Test := true,
+  unmanagedSourceDirectories in Compile += {
+    val sourceDir = (sourceDirectory in Compile).value
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, n)) if n >= 13 => sourceDir / "scala-2.13+"
+      case _ => sourceDir / "scala-2.12-"
+    }
+  },
 
   ScoverageKeys.coverageHighlighting := true,
   resolvers +=
@@ -48,7 +58,8 @@ val baseSettings = Seq(
     "-feature",
     "-encoding", "utf8",
     // Needs -missing-interpolator due to https://issues.scala-lang.org/browse/SI-8761
-    "-Xlint:-missing-interpolator"
+    "-Xlint:-missing-interpolator",
+    "-Yrangepos"
   ),
 
   // Note: Use -Xlint rather than -Xlint:unchecked when TestThriftStructure
@@ -216,7 +227,7 @@ lazy val utilCore = Project(
     caffeineLib % "test",
     scalacheckLib,
     "org.scala-lang" % "scala-reflect" % scalaVersion.value,
-    "org.scala-lang.modules" %% "scala-parser-combinators" % "1.0.4"
+    "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
   ),
   resourceGenerators in Compile += Def.task {
     val projectName = name.value
@@ -368,7 +379,14 @@ lazy val utilStats = Project(
   sharedSettings
 ).settings(
   name := "util-stats",
-  libraryDependencies ++= Seq(caffeineLib, jsr305Lib, scalacheckLib)
+  libraryDependencies ++= Seq(caffeineLib, jsr305Lib, scalacheckLib) ++ {
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, major)) if major >= 13 =>
+        Seq("org.scala-lang.modules" %% "scala-parallel-collections" % "0.2.0" % "test")
+      case _ =>
+        Seq()
+  }
+}
 ).dependsOn(utilCore, utilLint)
 
 lazy val utilTest = Project(
@@ -432,3 +450,5 @@ lazy val utilZkTest = Project(
   name := "util-zk-test",
   libraryDependencies += zkDependency
 ).dependsOn(utilCore % "test")
+
+scalafixDependencies in ThisBuild += "org.scala-lang.modules" %% "scala-collection-migrations" % "1.0.0"

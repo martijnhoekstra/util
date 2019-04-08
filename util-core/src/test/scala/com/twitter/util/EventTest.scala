@@ -6,6 +6,8 @@ import org.scalatest.FunSuite
 import org.scalatest.junit.JUnitRunner
 import org.junit.runner.RunWith
 import scala.collection.mutable
+import scala.collection.Seq
+import scala.collection.Seq._
 
 @RunWith(classOf[JUnitRunner])
 class EventTest extends FunSuite {
@@ -331,6 +333,7 @@ class EventTest extends FunSuite {
   test("Event.dedupWith") {
     val e = Event[Int]()
     val ref = new AtomicReference[IndexedSeq[Int]]
+    import IndexedSeq._
 
     e.dedupWith { (a, b) =>
         a >= b
@@ -351,6 +354,7 @@ class EventTest extends FunSuite {
   test("Event.dedup") {
     val e = Event[Int]()
     val ref = new AtomicReference[IndexedSeq[Int]]
+    import IndexedSeq._
 
     e.dedup.build.register(Witness(ref))
     e.notify(0)
