@@ -8,11 +8,11 @@ import org.junit.runner.RunWith
 import org.scalacheck.Arbitrary
 import org.scalatest.WordSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import scala.collection.mutable.ArrayBuffer
 
 @RunWith(classOf[JUnitRunner])
-class SpoolTest extends WordSpec with GeneratorDrivenPropertyChecks {
+class SpoolTest extends WordSpec with ScalaCheckDrivenPropertyChecks {
   "Empty Spool" should {
     val s = Spool.empty[Int]
 

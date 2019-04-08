@@ -3,7 +3,7 @@ package com.twitter.concurrent
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 
 import com.twitter.util.{Promise, Return}
 

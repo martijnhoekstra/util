@@ -6,6 +6,7 @@ import org.junit.runner.RunWith
 import org.scalatest.FunSuite
 import org.scalatest.concurrent.{Eventually, IntegrationPatience}
 import org.scalatest.junit.JUnitRunner
+import scala.collection.parallel.immutable.ParRange
 
 @RunWith(classOf[JUnitRunner])
 class InMemoryStatsReceiverTest extends FunSuite with Eventually with IntegrationPatience {
@@ -33,7 +34,7 @@ class InMemoryStatsReceiverTest extends FunSuite with Eventually with Integratio
 
   test("threadsafe counter") {
     val inMemoryStatsReceiver = new InMemoryStatsReceiver
-    (1 to 50).par.foreach(_ => inMemoryStatsReceiver.counter("same").incr())
+    new ParRange(1 to 50).foreach(_ => inMemoryStatsReceiver.counter("same").incr())
     eventually {
       assert(inMemoryStatsReceiver.counter("same")() == 50)
     }
@@ -41,7 +42,7 @@ class InMemoryStatsReceiverTest extends FunSuite with Eventually with Integratio
 
   test("threadsafe stats") {
     val inMemoryStatsReceiver = new InMemoryStatsReceiver
-    (1 to 50).par.foreach(_ => inMemoryStatsReceiver.stat("same").add(1.0f))
+    new ParRange(1 to 50).foreach(_ => inMemoryStatsReceiver.stat("same").add(1.0f))
     eventually {
       assert(inMemoryStatsReceiver.stat("same")().size == 50)
     }

@@ -5,7 +5,7 @@ import com.twitter.util.{Await, Future}
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.prop.Checkers
+import org.scalatestplus.scalacheck.Checkers
 
 @RunWith(classOf[JUnitRunner])
 class BufReaderTest extends FunSuite with Checkers {
