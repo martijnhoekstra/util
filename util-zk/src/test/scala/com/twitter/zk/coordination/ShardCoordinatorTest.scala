@@ -6,7 +6,7 @@ import org.apache.zookeeper.ZooDefs.Ids.OPEN_ACL_UNSAFE
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 
 import com.twitter.conversions.DurationOps._
 import com.twitter.util.{Await, Future, JavaTimer}
@@ -25,7 +25,7 @@ class ShardCoordinatorTest extends WordSpec with MockitoSugar {
         val connector = NativeConnector(connectString, 5.seconds, 10.minutes)
         val zk = ZkClient(connector)
           .withRetryPolicy(RetryPolicy.Basic(3))
-          .withAcl(OPEN_ACL_UNSAFE.asScala)
+          .withAcl(OPEN_ACL_UNSAFE.asScala.toSeq)
 
         Await.result(Future { f(zk) } ensure { zk.release })
       }

@@ -193,7 +193,7 @@ class Flags(argv0: String, includeGlobal: Boolean, failFastUntilParsed: Boolean)
       if (helpFlag())
         Help(usage)
       else
-        Ok(remaining)
+        Ok(remaining.toSeq)
     }
 
   /**

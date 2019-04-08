@@ -3,10 +3,10 @@ package com.twitter.hashing
 import org.junit.runner.RunWith
 import org.scalatest.junit.JUnitRunner
 import org.scalatest.FunSuite
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
 @RunWith(classOf[JUnitRunner])
-class HashableTest extends FunSuite with GeneratorDrivenPropertyChecks {
+class HashableTest extends FunSuite with ScalaCheckDrivenPropertyChecks {
 
   private[this] val algorithms = Seq(
     Hashable.CRC32_ITU,

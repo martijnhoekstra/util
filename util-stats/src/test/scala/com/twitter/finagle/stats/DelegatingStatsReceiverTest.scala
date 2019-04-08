@@ -4,10 +4,10 @@ import org.junit.runner.RunWith
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite
 import org.scalatest.junit.JUnitRunner
-import org.scalatest.prop.GeneratorDrivenPropertyChecks
+import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
 @RunWith(classOf[JUnitRunner])
-class DelegatingStatsReceiverTest extends FunSuite with GeneratorDrivenPropertyChecks {
+class DelegatingStatsReceiverTest extends FunSuite with ScalaCheckDrivenPropertyChecks {
 
   class Ctx {
     var leafCounter = 0
