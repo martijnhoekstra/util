@@ -7,8 +7,7 @@ import org.scalatest.FunSuite
 import org.scalatest.junit.JUnitRunner
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import scala.collection.mutable
-import scala.collection.Seq
-import scala.collection.Seq._
+import scala.collection.compat._
 
 @RunWith(classOf[JUnitRunner])
 class VarTest extends FunSuite with ScalaCheckDrivenPropertyChecks {
@@ -223,7 +222,7 @@ class VarTest extends FunSuite with ScalaCheckDrivenPropertyChecks {
   }
 
   test("Var.collect: empty") {
-    assert(Var.collect(Seq.empty[Var[Int]]).sample == Seq.empty)
+    assert(Var.collect(List.empty[Var[Int]]).sample == Nil)
   }
 
   test("Var.collect[Seq]") {
