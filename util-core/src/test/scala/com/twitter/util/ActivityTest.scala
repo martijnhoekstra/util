@@ -5,8 +5,6 @@ import org.junit.runner.RunWith
 import org.scalatest.FunSuite
 import org.scalatest.junit.JUnitRunner
 import scala.collection.compat._
-import scala.collection.Seq
-import scala.collection.Seq._
 
 @RunWith(classOf[JUnitRunner])
 class ActivityTest extends FunSuite {
