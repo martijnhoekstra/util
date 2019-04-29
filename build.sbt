@@ -30,7 +30,6 @@ val baseSettings = Seq(
   organization := "com.twitter",
   // Workaround for a scaladoc bug which causes it to choke on empty classpaths.
   unmanagedClasspath in Compile += Attributed.blank(new java.io.File("doesnotexist")),
-  scalafixDependencies += "org.scala-lang.modules" %% "scala-collection-migrations" % "1.0.0",
   libraryDependencies ++= Seq(
     // See https://www.scala-sbt.org/0.13/docs/Testing.html#JUnit
     "org.scala-lang.modules" %% "scala-collection-compat" % "1.0.0",
@@ -450,5 +449,3 @@ lazy val utilZkTest = Project(
   name := "util-zk-test",
   libraryDependencies += zkDependency
 ).dependsOn(utilCore % "test")
-
-scalafixDependencies in ThisBuild += "org.scala-lang.modules" %% "scala-collection-migrations" % "1.0.0"
