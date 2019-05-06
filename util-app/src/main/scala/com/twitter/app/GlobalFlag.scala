@@ -115,9 +115,10 @@ abstract class GlobalFlag[T] private[app] (
 }
 
 object GlobalFlag {
+  import scala.util.Try
 
-  private[app] def get(flagName: String): Option[Flag[_]] = {
-    def tryMethod(cls: Class[_], methodName: String): Option[Flag[_]] =
+  private[app] def get(cls: Class[_]): Option[Flag[_]] = {
+    def tryMethod(methodName: String): Option[Flag[_]] =
       try {
         val m = cls.getMethod(methodName)
         val isValid = Modifier.isStatic(m.getModifiers) &&
@@ -125,32 +126,21 @@ object GlobalFlag {
           m.getParameterCount == 0
         if (isValid) Some(m.invoke(null).asInstanceOf[Flag[_]]) else None
       } catch {
-        case _: NoSuchMethodException | _: IllegalArgumentException =>
-          None
+        case _: NoSuchMethodException => None
       }
 
-    def tryModuleField(cls: Class[_]): Option[Flag[_]] =
+    def tryModuleField: Option[Flag[_]] =
       try {
         val f = cls.getField("MODULE$")
-        val isValid = Modifier.isStatic(f.getModifiers) && classOf[Flag[_]]
-          .isAssignableFrom(f.getType)
+        val isValid = Modifier.isStatic(f.getModifiers) && 
+          classOf[Flag[_]].isAssignableFrom(f.getType)
         if (isValid) Some(f.get(null).asInstanceOf[Flag[_]]) else None
       } catch {
-        case _: NoSuchFieldException | _: IllegalArgumentException =>
-          None
+        case _: NoSuchFieldException => None
       }
-
-    val className = if (!flagName.endsWith("$")) flagName + "$" else flagName
-   
-    for {
-      cls <- try { 
-          Some(Class.forName(className))
-        } catch  {
-          case _: ClassNotFoundException  => None
-        }
-      flag <- tryModuleField(cls).orElse(tryMethod(cls, "globalFlagInstance")) // fallback for GlobalFlags declared in Java
-    } yield flag
-   
+    
+    tryModuleField.orElse(tryMethod("globalFlagInstance")) // fallback for GlobalFlags declared in Java
+  
   }
 
   private val log = java.util.logging.Logger.getLogger("")
@@ -167,6 +157,13 @@ object GlobalFlag {
     }
   }
 
+  def tryLoadClass(name: String): Option[Class[_]] =
+    try { Some(Class.forName(name)) }
+    catch { case _: ClassNotFoundException => None }
+  def tryLoadClass(name: String, initialize: Boolean, loader: ClassLoader): Option[Class[_]] =
+    try { Some(Class.forName(name, initialize, loader)) }
+    catch { case _: ClassNotFoundException => None }
+
   private[app] def getAll(loader: ClassLoader): Seq[Flag[_]] = {
 
     // Since Scala object class names end with $, we search for them.
@@ -176,24 +173,18 @@ object GlobalFlag {
       className.endsWith("$") && !className.endsWith("package$")
 
     val markerClass = classOf[GlobalFlagVisible]
-    val flagBuilder = new scala.collection.immutable.VectorBuilder[Flag[_]]
 
     // Search for Scala objects annotated with GlobalFlagVisible:
     val cp = new FlagClassPath()
-    for (info <- cp.browse(loader) if couldBeFlag(info.className)) {
-      try {
-        val cls: Class[_] = Class.forName(info.className, false, loader)
-        if (cls.isAnnotationPresent(markerClass)) {
-          get(info.className) match {
-            case Some(f) =>
-              flagBuilder += f
-            case None => println("failed for " + info.className)
-          }
-        }
-      } catch {
-        case _: IllegalStateException | _: NoClassDefFoundError | _: ClassNotFoundException =>
-      }
-    }
-    flagBuilder.result()
+    for {
+      info <- cp.browse(loader) if couldBeFlag(info.className)
+      cls <- tryLoadClass(info.className, false, loader) if (cls.isAnnotationPresent(markerClass))
+      flag <- get(cls).fold[Option[Flag[_]]]{
+        println("failed for " + info.className)
+        None
+      }(Some(_))
+    } yield flag
+    //IllegalStateException | NoClassDefFoundError ?
+    
   }
 }
