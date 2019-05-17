@@ -102,7 +102,7 @@ class Flags(argv0: String, includeGlobal: Boolean, failFastUntilParsed: Boolean)
   }
 
   private[this] def resolveGlobalFlag(f: String) =
-    if (includeGlobal) GlobalFlag.get(f) else None
+    if (includeGlobal) GlobalFlag.fromFlagName(f) else None
 
   private[this] def resolveFlag(f: String): Option[Flag[_]] =
     synchronized { flags.get(f) orElse resolveGlobalFlag(f) }

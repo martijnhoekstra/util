@@ -21,7 +21,7 @@ public class JavaGlobalFlagTest {
   @Test
   public void testGet() {
     Option<Flag<?>> flagOption =
-        GlobalFlag$.MODULE$.get("com.twitter.app.javaGlobalWithDefault");
+        GlobalFlag$.MODULE$.fromFlagName("com.twitter.app.javaGlobalWithDefault");
     assertTrue(flagOption.isDefined());
     Flag<?> flag = flagOption.get();
     assertEquals("default value", flag.apply());

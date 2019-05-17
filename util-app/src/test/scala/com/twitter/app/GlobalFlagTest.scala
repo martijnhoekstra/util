@@ -16,7 +16,8 @@ class GlobalFlagTest extends FunSuite {
     assert(MyGlobalFlag.get.isEmpty)
     val flag = new Flags("my", includeGlobal = true)
     try {
-      flag.parseArgs(Array("-com.twitter.app.MyGlobalFlag", "supplied"))
+      val parsed = flag.parseArgs(Array("-com.twitter.app.MyGlobalFlag", "supplied"))
+      println(parsed)
       assert(MyGlobalFlag.get.contains("supplied"))
     } finally {
       MyGlobalFlag.reset()
@@ -67,8 +68,8 @@ class GlobalFlagTest extends FunSuite {
   test("GlobalFlag.getAll") {
     val mockClassLoader = new MockClassLoader(getClass.getClassLoader.asInstanceOf[URLClassLoader])
     val flags = GlobalFlag.getAll(mockClassLoader)
+    assert(flags.toSet == Set(MyGlobalFlag, MyGlobalBooleanFlag, MyGlobalFlagNoDefault, PackageObjectTest))
     assert(flags.length == 4)
-    assert(flags.exists(_.help.equals("a package object test flag")))
   }
 
   private class MockClassLoader(realClassLoader: URLClassLoader)

@@ -140,8 +140,11 @@ object GlobalFlag {
       }
     
     tryModuleField.orElse(tryMethod("globalFlagInstance")) // fallback for GlobalFlags declared in Java
-  
   }
+
+  private[app] def fromClassName(classname: String): Option[Flag[_]] = tryLoadClass(classname).flatMap(get)
+  private[app] def fromFlagName(flagname: String): Option[Flag[_]] = tryLoadClass(flagname + "$").flatMap(get)
+  
 
   private val log = java.util.logging.Logger.getLogger("")
 
@@ -157,10 +160,10 @@ object GlobalFlag {
     }
   }
 
-  def tryLoadClass(name: String): Option[Class[_]] =
+  private[this] def tryLoadClass(name: String): Option[Class[_]] =
     try { Some(Class.forName(name)) }
     catch { case _: ClassNotFoundException => None }
-  def tryLoadClass(name: String, initialize: Boolean, loader: ClassLoader): Option[Class[_]] =
+  private[this] def tryLoadClass(name: String, initialize: Boolean, loader: ClassLoader): Option[Class[_]] =
     try { Some(Class.forName(name, initialize, loader)) }
     catch { case _: ClassNotFoundException => None }
 
