@@ -33,7 +33,7 @@ import java.util.concurrent.{
 import java.util.{logging => javalog}
 import org.junit.runner.RunWith
 import org.mockito.Mockito._
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import org.scalatest.{BeforeAndAfter, WordSpec}
 import org.scalatest.concurrent.Eventually
 import org.scalatestplus.mockito.MockitoSugar

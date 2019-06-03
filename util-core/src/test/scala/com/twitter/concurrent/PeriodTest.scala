@@ -3,7 +3,7 @@ package com.twitter.concurrent
 import com.twitter.conversions.DurationOps._
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class PeriodTest extends FunSuite {

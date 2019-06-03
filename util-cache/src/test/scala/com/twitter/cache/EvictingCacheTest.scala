@@ -5,7 +5,7 @@ import java.util.concurrent.ConcurrentHashMap
 import org.junit.runner.RunWith
 import org.mockito.Mockito.{verify, never}
 import org.scalatest.FunSuite
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.mockito.MockitoSugar
 
 @RunWith(classOf[JUnitRunner])

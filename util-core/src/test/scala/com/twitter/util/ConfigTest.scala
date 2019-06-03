@@ -2,7 +2,7 @@ package com.twitter.util
 
 import org.junit.runner.RunWith
 import org.scalatest.{Matchers, WordSpec}
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class ConfigTest extends WordSpec with Matchers {

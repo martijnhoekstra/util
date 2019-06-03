@@ -20,7 +20,7 @@ import java.util.{logging => javalog}
 
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 import com.twitter.conversions.StringOps._
 

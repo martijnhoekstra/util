@@ -4,7 +4,7 @@ import com.google.common.cache.{CacheLoader, CacheBuilder}
 import com.twitter.cache.AbstractLoadingFutureCacheTest
 import com.twitter.util.Future
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class LoadingFutureCacheTest extends AbstractLoadingFutureCacheTest {

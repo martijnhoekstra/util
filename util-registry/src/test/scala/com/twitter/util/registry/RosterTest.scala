@@ -4,7 +4,7 @@ import java.util.logging.Logger
 import org.mockito.Mockito.{never, verify}
 import org.mockito.Matchers.anyObject
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import org.scalatest.FunSuite
 import org.scalatestplus.mockito.MockitoSugar
 

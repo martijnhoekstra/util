@@ -5,7 +5,7 @@ import com.twitter.conversions.DurationOps._
 import java.util.concurrent.{RejectedExecutionException, CancellationException}
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class AsyncMeterTest extends FunSuite {

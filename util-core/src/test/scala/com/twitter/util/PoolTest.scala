@@ -5,7 +5,7 @@ import scala.collection.Seq
 
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 import com.twitter.conversions.DurationOps._
 

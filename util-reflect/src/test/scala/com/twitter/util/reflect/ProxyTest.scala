@@ -3,7 +3,7 @@ package com.twitter.util.reflect
 import com.twitter.util.{Future, Promise, Stopwatch}
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 object ProxySpec {
   trait TestInterface {

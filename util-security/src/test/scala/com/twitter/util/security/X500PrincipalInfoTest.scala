@@ -3,7 +3,7 @@ package com.twitter.util.security
 import javax.security.auth.x500.X500Principal
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class X500PrincipalInfoTest extends FunSuite {

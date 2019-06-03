@@ -7,7 +7,7 @@ import java.util.logging.{Handler, Level, LogRecord}
 import org.junit.runner.RunWith
 import org.scalatest.{FunSuite, Matchers}
 import org.scalatest.concurrent.{Eventually, IntegrationPatience}
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 abstract class LocalSchedulerTest(lifo: Boolean) extends FunSuite with Matchers {
   private val scheduler = new LocalScheduler(lifo)

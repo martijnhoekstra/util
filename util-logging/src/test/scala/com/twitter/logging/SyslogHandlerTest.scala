@@ -21,7 +21,7 @@ import java.util.{logging => javalog}
 
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class SyslogHandlerTest extends WordSpec {

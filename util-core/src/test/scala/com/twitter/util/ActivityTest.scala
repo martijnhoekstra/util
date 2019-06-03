@@ -3,7 +3,7 @@ package com.twitter.util
 import java.util.concurrent.atomic.AtomicReference
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import scala.collection.compat._
 
 @RunWith(classOf[JUnitRunner])

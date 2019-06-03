@@ -5,7 +5,7 @@ import scala.util.Random
 import org.junit.runner.RunWith
 import org.mockito.Mockito._
 import org.scalatest.WordSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.mockito.MockitoSugar
 
 import com.twitter.conversions.DurationOps._

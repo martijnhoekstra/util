@@ -20,7 +20,7 @@ import java.io._
 import java.util.{Calendar, Date, logging => javalog}
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import com.twitter.conversions.StorageUnitOps._
 import com.twitter.conversions.DurationOps._
 import com.twitter.io.TempFolder

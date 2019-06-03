@@ -5,7 +5,7 @@ import com.twitter.util._
 import java.util.concurrent.{ConcurrentLinkedQueue, RejectedExecutionException, CountDownLatch}
 import org.junit.runner.RunWith
 import org.scalatest.fixture.FunSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import scala.collection.mutable
 import org.scalatest.Outcome
 

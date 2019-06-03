@@ -4,7 +4,7 @@ import com.google.common.cache.{CacheLoader, CacheBuilder}
 import com.twitter.cache.AbstractFutureCacheTest
 import com.twitter.util.{Future, Promise}
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class GuavaCacheTest extends AbstractFutureCacheTest {

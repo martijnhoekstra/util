@@ -7,7 +7,7 @@ import java.io.EOFException
 import org.junit.runner.RunWith
 import org.scalacheck.Arbitrary
 import org.scalatest.WordSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import scala.collection.mutable.ArrayBuffer
 

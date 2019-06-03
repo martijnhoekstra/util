@@ -11,7 +11,7 @@ import org.junit.runner.RunWith
 import org.scalatest.WordSpec
 import org.scalatest.concurrent.AsyncAssertions
 import org.scalatest.concurrent.Eventually._
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatest.time.{Millis, Seconds, Span}
 import scala.collection.JavaConverters._

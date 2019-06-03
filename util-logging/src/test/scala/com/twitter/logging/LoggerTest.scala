@@ -22,7 +22,7 @@ import java.net.InetSocketAddress
 import java.util.concurrent.{Callable, CountDownLatch, Executors, Future, TimeUnit}
 import java.util.{logging => javalog}
 import org.junit.runner.RunWith
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import org.scalatest.{BeforeAndAfter, WordSpec}
 import scala.collection.mutable
 

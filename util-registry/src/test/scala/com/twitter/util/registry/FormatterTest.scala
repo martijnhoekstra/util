@@ -2,7 +2,7 @@ package com.twitter.util.registry
 
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import scala.util.control.NoStackTrace
 
 @RunWith(classOf[JUnitRunner])

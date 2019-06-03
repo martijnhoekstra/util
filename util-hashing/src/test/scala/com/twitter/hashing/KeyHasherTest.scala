@@ -4,7 +4,7 @@ import com.twitter.io.TempFile
 import java.util.Base64
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import scala.collection.mutable.ListBuffer
 import java.nio.charset.StandardCharsets.UTF_8
 

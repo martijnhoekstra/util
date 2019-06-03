@@ -3,7 +3,7 @@ package com.twitter.hashing
 import org.junit.runner.RunWith
 import org.scalacheck.Gen
 import org.scalatest.WordSpec
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import scala.collection.mutable
 import java.io.{BufferedReader, InputStreamReader}

@@ -5,7 +5,7 @@ import com.twitter.util._
 import org.junit.runner.RunWith
 import org.scalacheck.{Arbitrary, Gen}
 import org.scalatest.FunSuite
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
 @RunWith(classOf[JUnitRunner])
@@ -389,14 +389,12 @@ class AsyncStreamTest extends FunSuite with ScalaCheckDrivenPropertyChecks {
       }
     }
 
-    test(s"$impl: buffer() works like Seq.splitAt for positive values") {
+    test(s"$impl: buffer() works like Seq.splitAt") {
       forAll { (items: List[Char], bufferSize: Int) => 
-        if (bufferSize >= 0) {
-          val (expectedBuffer, expectedRest) = items.splitAt(bufferSize)
-          val (buffer, rest) = await(fromSeq(items).buffer(bufferSize))
-          assert(expectedBuffer == buffer)
-          assert(expectedRest == toSeq(rest()))
-        }
+        val (expectedBuffer, expectedRest) = items.splitAt(bufferSize)
+        val (buffer, rest) = await(fromSeq(items).buffer(bufferSize))
+        assert(expectedBuffer == buffer)
+        assert(expectedRest == toSeq(rest()))
       }
     }
 
@@ -406,7 +404,7 @@ class AsyncStreamTest extends FunSuite with ScalaCheckDrivenPropertyChecks {
       val gen = Gen.zip(Gen.nonEmptyListOf(Arbitrary.arbitrary[Char]), Arbitrary.arbitrary[Int])
 
       forAll(gen) {
-        case (items, n) if n >= 0 =>
+        case (items, n) =>
           var forced1 = false
           val stream1 = fromSeq(items) ++ { forced1 = true; AsyncStream.empty[Char] }
           var forced2 = false
@@ -439,8 +437,6 @@ class AsyncStreamTest extends FunSuite with ScalaCheckDrivenPropertyChecks {
           assert(toSeq(bufferTail) == toSeq(dropTail))
           assert(forced1)
           assert(forced2)
-        
-        case _ => ()
       }
     }
 

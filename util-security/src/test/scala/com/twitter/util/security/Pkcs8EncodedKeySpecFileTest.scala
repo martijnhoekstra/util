@@ -6,7 +6,7 @@ import java.io.File
 import java.security.spec.PKCS8EncodedKeySpec
 import org.junit.runner.RunWith
 import org.scalatest.FunSuite
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class Pkcs8EncodedKeySpecFileTest extends FunSuite {

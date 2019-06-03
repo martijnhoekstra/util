@@ -12,7 +12,8 @@ val zkDependency = "org.apache.zookeeper" % "zookeeper" % zkVersion excludeAll(
   ExclusionRule("javax.jms", "jms")
 )
 val slf4jVersion = "1.7.21"
-val jacksonVersion = "2.9.8"
+
+val jacksonVersion = "2.9.9"
 
 val guavaLib = "com.google.guava" % "guava" % "19.0"
 val caffeineLib = "com.github.ben-manes.caffeine" % "caffeine" % "2.3.4"
@@ -22,7 +23,7 @@ val slf4jApi = "org.slf4j" % "slf4j-api" % slf4jVersion
 
 val defaultProjectSettings = Seq(
   scalaVersion := "2.12.8",
-  crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.0-RC1")
+  crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.0-RC3")
 )
 
 val baseSettings = Seq(
@@ -32,10 +33,10 @@ val baseSettings = Seq(
   unmanagedClasspath in Compile += Attributed.blank(new java.io.File("doesnotexist")),
   libraryDependencies ++= Seq(
     // See https://www.scala-sbt.org/0.13/docs/Testing.html#JUnit
-    "org.scala-lang.modules" %% "scala-collection-compat" % "1.0.0",
+    "org.scala-lang.modules" %% "scala-collection-compat" % "2.0.0",
     "com.novocode" % "junit-interface" % "0.11" % "test",
     "org.mockito" % "mockito-all" % "1.10.19" % "test",
-    "org.scalatest" %% "scalatest" % "3.0.8-RC2" % "test"
+    "org.scalatest" %% "scalatest" % "3.0.8-RC5" % "test"
   ),
   fork in Test := true,
   unmanagedSourceDirectories in Compile += {

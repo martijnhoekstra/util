@@ -7,7 +7,7 @@ import java.util.concurrent.TimeUnit
 import org.junit.runner.RunWith
 import org.scalatest.WordSpec
 import org.scalatest.concurrent.{Eventually, IntegrationPatience}
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
 import com.twitter.conversions.DurationOps._

@@ -6,7 +6,7 @@ import java.net.InetAddress
 import org.apache.zookeeper.server.ZooKeeperServer
 import org.junit.runner.RunWith
 import org.scalatest.{BeforeAndAfter, FunSuite}
-import org.scalatest.junit.JUnitRunner
+import org.scalatestplus.junit.JUnitRunner
 
 @RunWith(classOf[JUnitRunner])
 class ServerCnxnFactoryTest extends FunSuite with BeforeAndAfter {
