@@ -256,4 +256,22 @@ trait StatsReceiver {
   }
 }
 
-abstract class AbstractStatsReceiver extends StatsReceiver
+abstract class AbstractStatsReceiver extends StatsReceiver {
+  @varargs
+  final override def counter(name: String*): Counter = counter(Verbosity.Default, name: _*)
+  @varargs
+  final override def counter(verbosity: Verbosity, name: String*): Counter = counterImpl(verbosity, name)
+  def counterImpl(verbosity: Verbosity, name: scala.collection.Seq[String]): Counter
+  
+  //the 2.12.x override is Counter counter(Verbosity verbosity, scala.collection.Seq<String> name)
+  //the 2.13.x override is Counter counter(Verbosity verbosity, scala.collection.immutable.Seq<String> name)
+  @varargs
+  final override def stat(name: String*): Stat = stat(Verbosity.Default, name: _*)
+  @varargs
+  final override def stat(verbosity: Verbosity, name: String*): Stat = statImpl(verbosity, name)
+  def statImpl(verbosity: Verbosity, name: scala.collection.Seq[String]): Stat
+  
+  final override def addGauge(name: String*)(f: => Float): Gauge = addGauge(Verbosity.Default, name: _*)(f)
+  final override def addGauge(verbosity: Verbosity, name: String*)(f: => Float): Gauge = addGaugeImpl(verbosity, name, f)
+  def addGaugeImpl(verbosity: Verbosity, name: scala.collection.Seq[String], f: => Float): Gauge
+}
