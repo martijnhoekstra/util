@@ -135,7 +135,7 @@ sealed abstract class AsyncStream[+A] {
    */
   def mapConcurrent[B](concurrencyLevel: Int)(f: A => Future[B]): AsyncStream[B] = {
     require(concurrencyLevel > 0, s"concurrencyLevel must be at least one. got: $concurrencyLevel")
-    mergeSeq(fanout(this, concurrencyLevel).map(_.mapF(f)))
+    merge(fanout(this, concurrencyLevel).map(_.mapF(f)): _*)
   }
 
   /**
@@ -697,27 +697,6 @@ object AsyncStream {
    */
   @varargs
   def merge[A](s: AsyncStream[A]*): AsyncStream[A] = {
-    def step(next: Seq[Future[Option[(A, () => AsyncStream[A])]]]): AsyncStream[A] = {
-      fromFuture(Future.select(next)).flatMap {
-        case (Return(Some((head, tail))), tails) =>
-          head +:: step(tail().uncons +: tails)
-        case (Throw(cause), tails) =>
-          fromFuture(Future.exception(cause))
-        case (Return(None), Nil) =>
-          empty
-        case (Return(None), tails) =>
-          step(tails)
-      }
-    }
-
-    if (s.isEmpty) {
-      empty
-    } else {
-      step(s.map(_.uncons))
-    }
-  }
-
-  private def mergeSeq[A](s: Seq[AsyncStream[A]]): AsyncStream[A] = {
     def step(next: Seq[Future[Option[(A, () => AsyncStream[A])]]]): AsyncStream[A] = {
       fromFuture(Future.select(next)).flatMap {
         case (Return(Some((head, tail))), tails) =>
