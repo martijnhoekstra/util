@@ -263,7 +263,7 @@ class FutureTest extends WordSpec with MockitoSugar with ScalaCheckDrivenPropert
         val result = Seq(4, 5, 6)
 
         "execute after threshold is reached" in {
-          val f = mock[Seq[Int] => Future[Seq[Int]]]
+          val f = mock[Iterable[Int] => Future[Seq[Int]]]
           val batcher = Future.batched(3)(f)
 
           when(f.apply(Seq(1, 2, 3))).thenReturn(Future.value(result))
@@ -276,7 +276,7 @@ class FutureTest extends WordSpec with MockitoSugar with ScalaCheckDrivenPropert
         }
 
         "execute after bufSizeFraction threshold is reached" in {
-          val f = mock[Seq[Int] => Future[Seq[Int]]]
+          val f = mock[Iterable[Int] => Future[Seq[Int]]]
           val batcher = Future.batched(3, sizePercentile = 0.67f)(f)
 
           when(f.apply(Seq(1, 2, 3))).thenReturn(Future.value(result))
@@ -287,7 +287,7 @@ class FutureTest extends WordSpec with MockitoSugar with ScalaCheckDrivenPropert
         }
 
         "treat bufSizeFraction return value < 0.0f as 1" in {
-          val f = mock[Seq[Int] => Future[Seq[Int]]]
+          val f = mock[Iterable[Int] => Future[Seq[Int]]]
           val batcher = Future.batched(3, sizePercentile = 0.4f)(f)
 
           when(f.apply(Seq(1, 2, 3))).thenReturn(Future.value(result))
@@ -296,7 +296,7 @@ class FutureTest extends WordSpec with MockitoSugar with ScalaCheckDrivenPropert
         }
 
         "treat bufSizeFraction return value > 1.0f should return maxSizeThreshold" in {
-          val f = mock[Seq[Int] => Future[Seq[Int]]]
+          val f = mock[Iterable[Int] => Future[Seq[Int]]]
           val batcher = Future.batched(3, sizePercentile = 1.3f)(f)
 
           when(f.apply(Seq(1, 2, 3))).thenReturn(Future.value(result))
@@ -309,7 +309,7 @@ class FutureTest extends WordSpec with MockitoSugar with ScalaCheckDrivenPropert
         }
 
         "execute after time threshold" in {
-          val f = mock[Seq[Int] => Future[Seq[Int]]]
+          val f = mock[Iterable[Int] => Future[Seq[Int]]]
           val batcher = Future.batched(3, 3.seconds)(f)
 
           Time.withCurrentTimeFrozen { control =>
@@ -332,7 +332,7 @@ class FutureTest extends WordSpec with MockitoSugar with ScalaCheckDrivenPropert
         }
 
         "only execute once if both are reached" in {
-          val f = mock[Seq[Int] => Future[Seq[Int]]]
+          val f = mock[Iterable[Int] => Future[Seq[Int]]]
           val batcher = Future.batched(3)(f)
 
           Time.withCurrentTimeFrozen { control =>
@@ -348,7 +348,7 @@ class FutureTest extends WordSpec with MockitoSugar with ScalaCheckDrivenPropert
         }
 
         "execute when flushBatch is called" in {
-          val f = mock[Seq[Int] => Future[Seq[Int]]]
+          val f = mock[Iterable[Int] => Future[Seq[Int]]]
           val batcher = Future.batched(4)(f)
 
           batcher(1)
@@ -360,7 +360,7 @@ class FutureTest extends WordSpec with MockitoSugar with ScalaCheckDrivenPropert
         }
 
         "only execute for remaining items when flushBatch is called after size threshold is reached" in {
-          val f = mock[Seq[Int] => Future[Seq[Int]]]
+          val f = mock[Iterable[Int] => Future[Seq[Int]]]
           val batcher = Future.batched(4)(f)
 
           batcher(1)
@@ -375,7 +375,7 @@ class FutureTest extends WordSpec with MockitoSugar with ScalaCheckDrivenPropert
         }
 
         "only execute once when time threshold is reached after flushBatch is called" in {
-          val f = mock[Seq[Int] => Future[Seq[Int]]]
+          val f = mock[Iterable[Int] => Future[Seq[Int]]]
           val batcher = Future.batched(4, 3.seconds)(f)
 
           Time.withCurrentTimeFrozen { control =>
@@ -391,7 +391,7 @@ class FutureTest extends WordSpec with MockitoSugar with ScalaCheckDrivenPropert
         }
 
         "only execute once when time threshold is reached before flushBatch is called" in {
-          val f = mock[Seq[Int] => Future[Seq[Int]]]
+          val f = mock[Iterable[Int] => Future[Seq[Int]]]
           val batcher = Future.batched(4, 3.seconds)(f)
 
           Time.withCurrentTimeFrozen { control =>
@@ -407,7 +407,7 @@ class FutureTest extends WordSpec with MockitoSugar with ScalaCheckDrivenPropert
         }
 
         "propagates results" in {
-          val f = mock[Seq[Int] => Future[Seq[Int]]]
+          val f = mock[Iterable[Int] => Future[Seq[Int]]]
           val batcher = Future.batched(3)(f)
 
           Time.withCurrentTimeFrozen { _ =>
@@ -430,7 +430,7 @@ class FutureTest extends WordSpec with MockitoSugar with ScalaCheckDrivenPropert
         }
 
         "not block other batches" in {
-          val f = mock[Seq[Int] => Future[Seq[Int]]]
+          val f = mock[Iterable[Int] => Future[Seq[Int]]]
           val batcher = Future.batched(3)(f)
 
           Time.withCurrentTimeFrozen { _ =>
@@ -464,7 +464,7 @@ class FutureTest extends WordSpec with MockitoSugar with ScalaCheckDrivenPropert
         }
 
         "swallow exceptions" in {
-          val f = mock[Seq[Int] => Future[Seq[Int]]]
+          val f = mock[Iterable[Int] => Future[Seq[Int]]]
           val batcher = Future.batched(3)(f)
 
           when(f(Seq(1, 2, 3))).thenAnswer {

@@ -81,8 +81,7 @@ class KetamaDistributorTest extends WordSpec with ScalaCheckDrivenPropertyChecks
         val md = MessageDigest.getInstance("MD5")
         ketama.hashInt(i, md)
         val array = md.digest()
-
-        assert(array.deep == md.digest(i.toString.getBytes("UTF-8")).deep)
+        assert(array.toSeq == md.digest(i.toString.getBytes("UTF-8")).toSeq)
       }
     }
 

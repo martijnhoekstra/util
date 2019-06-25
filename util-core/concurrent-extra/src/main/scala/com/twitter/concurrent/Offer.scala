@@ -206,6 +206,7 @@ object Offer {
    * The offer that chooses exactly one of the given offers. If there are any
    * Offers that are synchronizable immediately, one is chosen at random.
    */
+  @scala.annotation.varargs
   def choose[T](evs: Offer[T]*): Offer[T] = choose(rng, evs)
 
   /**

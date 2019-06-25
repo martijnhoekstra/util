@@ -387,7 +387,7 @@ class AsyncStreamTest extends FunSuite with ScalaCheckDrivenPropertyChecks {
     }
 
     test(s"$impl: buffer() works like Seq.splitAt") {
-      forAll { (items: List[Char], bufferSize: Int) =>
+      forAll { (items: List[Char], bufferSize: Int) => 
         val (expectedBuffer, expectedRest) = items.splitAt(bufferSize)
         val (buffer, rest) = await(fromSeq(items).buffer(bufferSize))
         assert(expectedBuffer == buffer)
