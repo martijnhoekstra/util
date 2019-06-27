@@ -17,7 +17,7 @@
 package com.twitter.util
 
 import org.scalatest.FunSuite
-import org.scalatest.prop.Checkers
+import org.scalatestplus.scalacheck.Checkers
 
 class CredentialsTest extends FunSuite with Checkers {
   test("parse a simple auth file") {

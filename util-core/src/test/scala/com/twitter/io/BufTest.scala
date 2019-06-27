@@ -7,14 +7,14 @@ import java.util.Arrays
 import org.scalacheck.{Arbitrary, Gen, Prop}
 import org.scalatest.FunSuite
 import org.scalatest.junit.AssertionsForJUnit
-import org.scalatest.prop.{Checkers, GeneratorDrivenPropertyChecks}
 import org.scalatestplus.mockito.MockitoSugar
+import org.scalatestplus.scalacheck.{Checkers, ScalaCheckDrivenPropertyChecks}
 import scala.collection.mutable
 
 class BufTest
     extends FunSuite
     with MockitoSugar
-    with GeneratorDrivenPropertyChecks
+    with ScalaCheckDrivenPropertyChecks
     with Checkers
     with AssertionsForJUnit {
 
