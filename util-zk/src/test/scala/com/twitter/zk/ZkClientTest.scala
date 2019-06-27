@@ -11,7 +11,7 @@ import org.mockito._
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.stubbing.Answer
 import org.scalatest.WordSpec
-import org.scalatest.mockito.MockitoSugar
+import org.scalatestplus.mockito.MockitoSugar
 
 import com.twitter.conversions.DurationOps._
 import com.twitter.logging.{Level, Logger}

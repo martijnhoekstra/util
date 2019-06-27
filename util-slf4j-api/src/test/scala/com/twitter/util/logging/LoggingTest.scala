@@ -2,8 +2,8 @@ package com.twitter.util.logging
 
 import org.mockito.Matchers._
 import org.mockito.Mockito._
-import org.scalatest.mockito.MockitoSugar
 import org.scalatest.{FunSuite, Matchers}
+import org.scalatestplus.mockito.MockitoSugar
 import org.slf4j
 import scala.language.reflectiveCalls
 
