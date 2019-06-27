@@ -6,8 +6,8 @@ import java.net.{URISyntaxException, URLClassLoader, URI}
 import java.nio.charset.MalformedInputException
 import java.util.jar.{JarEntry, JarFile}
 import scala.collection.mutable
-import scala.collection.JavaConverters._
 import scala.io.Source
+import scala.jdk.CollectionConverters._
 
 private[app] object ClassPath {
 

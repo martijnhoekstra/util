@@ -25,8 +25,9 @@ package com.twitter.util.testing
 import java.util.{List => JList}
 import org.mockito.ArgumentCaptor
 import org.mockito.exceptions.Reporter
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters
 import scala.reflect._
+
 
 // This file was generated from codegen/util-test/ArgumentCapture.scala.mako
 

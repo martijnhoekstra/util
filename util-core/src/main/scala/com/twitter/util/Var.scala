@@ -3,10 +3,10 @@ package com.twitter.util
 import java.util.concurrent.atomic.{AtomicLong, AtomicReference, AtomicReferenceArray}
 import java.util.{List => JList}
 import scala.annotation.tailrec
-import scala.collection.JavaConverters._
 import scala.collection.generic.CanBuildFrom
 import scala.collection.immutable
 import scala.collection.mutable.Buffer
+import scala.jdk.CollectionConverters._
 import scala.language.higherKinds
 import scala.reflect.ClassTag
 

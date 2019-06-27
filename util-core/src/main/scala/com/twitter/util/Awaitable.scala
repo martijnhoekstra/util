@@ -2,7 +2,7 @@ package com.twitter.util
 
 import com.twitter.concurrent.Scheduler
 import java.util.concurrent.atomic.AtomicBoolean
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 import scala.util.control.{NonFatal => NF}
 
 /**

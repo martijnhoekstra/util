@@ -19,8 +19,8 @@ package com.twitter.logging
 import java.util.concurrent.ConcurrentHashMap
 import java.util.{logging => javalog}
 import scala.annotation.{tailrec, varargs}
-import scala.collection.JavaConverters._
 import scala.collection.Map
+import scala.jdk.CollectionConverters._
 
 // replace java's ridiculous log levels with the standard ones.
 sealed abstract class Level(val name: String, val value: Int) extends javalog.Level(name, value) {
