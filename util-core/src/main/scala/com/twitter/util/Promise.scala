@@ -134,7 +134,7 @@ object Promise {
    * A template trait for [[com.twitter.util.Promise Promises]] that are derived
    * and capable of being detached from other Promises.
    */
-  trait Detachable { _: Promise[_] =>
+  trait Detachable { this: Promise[_] =>
 
     /**
      * Returns true if successfully detached, will return true at most once.
@@ -460,17 +460,17 @@ class Promise[A] extends Future[A] with Promise.Responder[A] with Updatable[Try[
   @volatile private[this] var state: Any = WaitQueue.empty[A]
   private def theState(): Any = state
 
-  private[util] def this(forwardInterrupts: Future[_]) {
+  private[util] def this(forwardInterrupts: Future[_]) = {
     this()
     this.state = new Transforming[A](WaitQueue.empty, forwardInterrupts)
   }
 
-  def this(handleInterrupt: PartialFunction[Throwable, Unit]) {
+  def this(handleInterrupt: PartialFunction[Throwable, Unit]) = {
     this()
     this.state = new Interruptible[A](WaitQueue.empty, handleInterrupt, Local.save())
   }
 
-  def this(result: Try[A]) {
+  def this(result: Try[A]) = {
     this()
     this.state = result
   }
