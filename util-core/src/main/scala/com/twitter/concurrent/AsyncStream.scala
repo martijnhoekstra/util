@@ -589,7 +589,7 @@ object AsyncStream {
     override def toString(): String = s"Cons($fa, $next)"
   }
 
-  object Cons {
+  private object Cons {
     def apply[A](fa: Future[A], next: () => AsyncStream[A]): AsyncStream[A] =
       new Cons(fa, next)
 
