@@ -76,7 +76,7 @@ def jdk11GcJavaOptions: Seq[String] = {
 
 val defaultProjectSettings = Seq(
   scalaVersion := "2.12.8",
-  crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.1")
+  crossScalaVersions := Seq("2.11.12", "2.12.8", "2.13.1", "0.24.0-RC1")
 )
 
 val baseSettings = Seq(
@@ -91,14 +91,15 @@ val baseSettings = Seq(
     "org.mockito" % "mockito-all" % "1.10.19" % "test",
     "org.scalatest" %% "scalatest" % "3.0.8" % "test"
   ),
+  libraryDependencies := libraryDependencies.value.map(_.withDottyCompat(scalaVersion.value)),
   fork in Test := true, // We have to fork to get the JavaOptions
   // Workaround for cross building HealthyQueue.scala, which is not compatible between
   // 2.12- with 2.13+.
   unmanagedSourceDirectories in Compile += {
     val sourceDir = (sourceDirectory in Compile).value
     CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, n)) if n >= 13 => sourceDir / "scala-2.13+"
-      case _ => sourceDir / "scala-2.12-"
+      case Some((2, n)) if n < 13 => sourceDir / "scala-2.12-"
+      case _ => sourceDir / "scala-2.13+"
     }
   },
   ScoverageKeys.coverageHighlighting := true,
@@ -115,6 +116,7 @@ val baseSettings = Seq(
     "-Xlint:-missing-interpolator",
     "-Yrangepos"
   ),
+  scalacOptions ++= { if (isDotty.value) Seq("-source:3.0-migration", "-rewrite") else Nil },
   // Note: Use -Xlint rather than -Xlint:unchecked when TestThriftStructure
   // warnings are resolved
   javacOptions ++= Seq("-Xlint:unchecked", "-source", "1.8", "-target", "1.8"),
@@ -285,9 +287,9 @@ lazy val utilCore = Project(
     libraryDependencies ++= Seq(
       caffeineLib % "test",
       scalacheckLib,
-      "org.scala-lang" % "scala-reflect" % scalaVersion.value,
+      //"org.scala-lang" % "scala-reflect" % scalaVersion.value,
       "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2"
-    ),
+    ).map(_.withDottyCompat(scalaVersion.value)),
     resourceGenerators in Compile += Def.task {
       val projectName = name.value
       val file = resourceManaged.value / "com" / "twitter" / projectName / "build.properties"
