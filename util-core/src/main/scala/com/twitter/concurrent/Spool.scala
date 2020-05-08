@@ -78,12 +78,12 @@ sealed trait Spool[+A] {
       Future { f(Some(head)) } flatMap { _ =>
         tail transform {
           case Return(s) => s.foreachElem(f)
-          case Throw(_: EOFException) => Future { f(None) }
+          case Throw(_: EOFException) => Future { f(None); () }
           case Throw(cause) => Future.exception(cause)
         }
       }
     } else {
-      Future { f(None) }
+      Future { f(None); () }
     }
   }
 
