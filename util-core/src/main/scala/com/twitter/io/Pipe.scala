@@ -139,41 +139,38 @@ final class Pipe[A](timer: Timer) extends Reader[A] with Writer[A] {
     result
   }
 
-  def discard(): Unit = {
-    fail(new ReaderDiscardedException(), discard = true)
+  def discard(): Unit = fail(new ReaderDiscardedException(), discard = true)
+
+  private final class CompletablePromise[A](waiter: Promise[A], value: A) {
+    def complete() = waiter.setValue(value)
   }
 
   def write(buf: A): Future[Unit] = {
-    val (waiter, value, result) = synchronized {
+    val s: Either[CompletablePromise[_], Future[Unit]] = synchronized {
       state match {
-        case State.Failed(exc) =>
-          (null, null, Future.exception(exc))
-
-        case State.Closed | State.Closing(_, _) =>
-          (null, null, Future.exception(new IllegalStateException("write() while closed")))
-
+        case State.Failed(exc) => Right(Future.exception(exc))
+        case State.Closed | State.Closing(_, _) => Right(Future.exception(new IllegalStateException("write() while closed")))
         case State.Idle =>
           val p = new Promise[Unit]
           state = State.Writing(buf, p)
-          (null, null, p)
+          Right(p)
 
-        case State.Reading(p) =>
+        case State.Reading(p: Promise[Option[A]]) =>
           // pending reader has enough space for the full write
           state = State.Idle
-          (p, Some(buf), Future.Done)
+          Left(new CompletablePromise(p, Some(buf)))
 
-        case State.Writing(_, _) =>
-          (
-            null,
-            null,
-            Future.exception(new IllegalStateException("write() while write is pending"))
-          )
+        case State.Writing(_, _) => Right(Future.exception(new IllegalStateException("write() while write is pending")))
       }
     }
 
-    // The waiter and the value are mutually inclusive so just checking against waiter is adequate.
-    if (waiter != null) waiter.setValue(value)
-    result
+    s match {
+      case Right(u) => u
+      case Left(cp) => {
+        cp.complete()
+        Future.Done
+      }
+    }
   }
 
   def fail(cause: Throwable): Unit = fail(cause, discard = false)

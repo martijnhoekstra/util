@@ -426,8 +426,8 @@ object Buf {
 
     def slice(from: Int, until: Int): Buf = {
       checkSliceArgs(from, until)
-
-      if (isSliceEmpty(from, until)) return Buf.Empty
+      //this. because of https://github.com/lampepfl/dotty/issues/8914
+      if (this.isSliceEmpty(from, until)) return Buf.Empty
       else if (isSliceIdentity(from, until)) return this
 
       var begin = from
@@ -501,7 +501,8 @@ object Buf {
 
     def process(from: Int, until: Int, processor: Processor): Int = {
       checkSliceArgs(from, until)
-      if (isSliceEmpty(from, until)) return -1
+      //this. because of https://github.com/lampepfl/dotty/issues/8914
+      if (this.isSliceEmpty(from, until)) return -1
       var i = 0
       var bufIdx = 0
       var continue = true
@@ -618,7 +619,8 @@ object Buf {
 
     def process(from: Int, until: Int, processor: Processor): Int = {
       checkSliceArgs(from, until)
-      if (isSliceEmpty(from, until)) return -1
+      //this. because of https://github.com/lampepfl/dotty/issues/8914
+      if (this.isSliceEmpty(from, until)) return -1
       var i = from
       var continue = true
       val endAt = math.min(until, length)
@@ -645,7 +647,8 @@ object Buf {
 
     def slice(from: Int, until: Int): Buf = {
       checkSliceArgs(from, until)
-      if (isSliceEmpty(from, until)) Buf.Empty
+      //this. because of https://github.com/lampepfl/dotty/issues/8914
+      if (this.isSliceEmpty(from, until)) Buf.Empty
       else if (isSliceIdentity(from, until)) this
       else {
         val cap = math.min(until, length)
@@ -824,7 +827,8 @@ object Buf {
 
     def process(from: Int, until: Int, processor: Processor): Int = {
       checkSliceArgs(from, until)
-      if (isSliceEmpty(from, until)) return -1
+      //this. because of https://github.com/lampepfl/dotty/issues/8914
+      if (this.isSliceEmpty(from, until)) return -1
       val pos = underlying.position()
       var i = from
       var continue = true
@@ -854,7 +858,8 @@ object Buf {
 
     def slice(from: Int, until: Int): Buf = {
       checkSliceArgs(from, until)
-      if (isSliceEmpty(from, until)) Buf.Empty
+      //this. because of https://github.com/lampepfl/dotty/issues/8914
+      if (this.isSliceEmpty(from, until)) Buf.Empty
       else if (isSliceIdentity(from, until)) this
       else {
         val dup = underlying.duplicate()

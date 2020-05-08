@@ -351,7 +351,7 @@ lazy val utilHashing = Project(
     sharedSettings
   ).settings(
     name := "util-hashing",
-    libraryDependencies += scalacheckLib
+    libraryDependencies += scalacheckLib.withDottyCompat(scalaVersion.value)
   ).dependsOn(utilCore % "test")
 
 lazy val utilIntellij = Project(
@@ -446,7 +446,8 @@ lazy val utilStats = Project(
         case _ =>
           Seq()
       }
-    }
+    },
+    libraryDependencies := libraryDependencies.value. map(_.withDottyCompat(scalaVersion.value))
   ).dependsOn(utilCore, utilLint)
 
 lazy val utilRouting = Project(
@@ -468,7 +469,7 @@ lazy val utilTest = Project(
     libraryDependencies ++= Seq(
       "org.scalatest" %% "scalatest" % "3.0.0",
       "org.mockito" % "mockito-all" % "1.10.19"
-    )
+    ).map(_.withDottyCompat(scalaVersion.value))
   ).dependsOn(utilCore, utilLogging)
 
 lazy val utilThrift = Project(
@@ -497,7 +498,7 @@ lazy val utilTunable = Project(
       "com.fasterxml.jackson.core" % "jackson-core" % jacksonVersion,
       "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
       "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion exclude ("com.google.guava", "guava")
-    )
+    ).map(_.withDottyCompat(scalaVersion.value))
   ).dependsOn(utilApp, utilCore)
 
 lazy val utilZk = Project(
