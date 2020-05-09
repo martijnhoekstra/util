@@ -5,8 +5,9 @@ import scala.collection.mutable
 private[util] class HealthyQueue[A](
   makeItem: () => Future[A],
   numItems: Int,
-  isHealthy: A => Boolean)
-    extends scala.collection.mutable.Queue[Future[A]] {
+  isHealthy: A => Boolean) //constructor param workaround for https://github.com/lampepfl/dotty/issues/8920
+    extends scala.collection.mutable.Queue[Future[A]](mutable.ArrayDeque.DefaultInitialSize) {
+
 
   0.until(numItems) foreach { _ => this += makeItem() }
 
