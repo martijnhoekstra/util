@@ -561,7 +561,8 @@ class Promise[A] extends Future[A] with Promise.Responder[A] with Updatable[Try[
     }
   }
 
-  @tailrec final def raise(intr: Throwable): Unit = state match {
+  //@tailrec https://github.com/scala/bug/issues/11989
+  final def raise(intr: Throwable): Unit = state match {
     case waitq: WaitQueue[A] =>
       if (!cas(waitq, new Interrupted(waitq, intr)))
         raise(intr)
