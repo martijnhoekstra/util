@@ -14,7 +14,7 @@ import static com.twitter.util.Function.func0;
 public final class Monitors {
   private Monitors() { }
 
-  private static final Monitor$ it =
+  private static final Monitor it =
       Monitor$.MODULE$;
 
   /**
