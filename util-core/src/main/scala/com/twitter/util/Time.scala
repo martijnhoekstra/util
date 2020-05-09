@@ -165,8 +165,8 @@ trait TimeLike[This <: TimeLike[This]] extends Ordered[This] { self: This =>
    */
   def inTimeUnit: (Long, TimeUnit) = inNanoseconds match {
     // allow for APIs that may treat TimeUnit differently if measured in very tiny units.
-    case ns if ns % Duration.NanosPerMinute == 0 => (inMinutes, TimeUnit.MINUTES)
-    case ns if ns % Duration.NanosPerSecond == 0 => (inSeconds, TimeUnit.SECONDS)
+    case ns if ns % Duration.NanosPerMinute == 0 => (inMinutes.toLong, TimeUnit.MINUTES)
+    case ns if ns % Duration.NanosPerSecond == 0 => (inSeconds.toLong, TimeUnit.SECONDS)
     case ns if ns % Duration.NanosPerMillisecond == 0 => (inMilliseconds, TimeUnit.MILLISECONDS)
     case ns => (ns, TimeUnit.NANOSECONDS)
   }

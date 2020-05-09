@@ -76,7 +76,7 @@ class BufInputStream(val buf: Buf) extends InputStream {
   override def skip(n: Long): Long = synchronized {
     if (n <= 0L) 0L
     else {
-      val skipped = math.min(n, available)
+      val skipped = math.min(n, available.toLong)
       index += skipped.toInt
       skipped
     }

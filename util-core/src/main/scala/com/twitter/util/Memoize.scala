@@ -85,7 +85,7 @@ object Memoize {
     new Snappable[A, B] {
       private[this] var memo = Map.empty[A, Either[GuardedCountDownLatch, B]]
 
-      override def size: Long = memo.size
+      override def size: Long = memo.size.toLong
 
       def snap: Map[A, B] =
         synchronized(memo) collect {

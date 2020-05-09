@@ -1,4 +1,5 @@
 package com.twitter.util
+import scala.language.implicitConversions
 
 /**
  * Efficient conversion between Longs and base 64 encoded strings.

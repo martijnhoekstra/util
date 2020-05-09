@@ -79,7 +79,7 @@ private[twitter] class WindowedAdder private[WindowedAdder] (
   def add(x: Int): Unit = {
     if ((now() - old) >= window)
       expired()
-    writer.add(x)
+    writer.add(x.toLong)
   }
 
   /** Retrieve the current sum of the adder */

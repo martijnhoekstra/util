@@ -8,6 +8,7 @@ import java.util.concurrent.{
   LinkedBlockingQueue,
   RejectedExecutionException
 }
+import scala.language.implicitConversions //for Int -> Long widening under dotty
 
 // implicitly a rate of 1 token / `interval`
 private[concurrent] class Period(val interval: Duration) extends AnyVal {
