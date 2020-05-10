@@ -10,6 +10,9 @@ import java.util.concurrent.atomic.AtomicReference;
  * Java compatibility layer for {@link com.twitter.util.Closable}.
  */
 public final class Closables {
+  private static final scala.collection.immutable.Seq<Closable> fromArray(Closable[] closables) {
+    return JavaConverters.asScalaBuffer(Arrays.asList(closables)).toSeq();
+  }
 
   /**
    * @see com.twitter.util.Closable$#nop()
@@ -43,14 +46,14 @@ public final class Closables {
    * @see com.twitter.util.Closable$#all(scala.collection.Seq)
    */
   public static Closable all(Closable... closables) {
-    return Closable$.MODULE$.all(closables);
+    return Closable$.MODULE$.all(fromArray(closables));
   }
 
   /**
    * @see com.twitter.util.Closable$#sequence(scala.collection.Seq)
    */
   public static Closable sequence(Closable... closables) {
-    return Closable$.MODULE$.sequence(closables);
+    return Closable$.MODULE$.sequence(fromArray(closables));
   }
 
   /**
