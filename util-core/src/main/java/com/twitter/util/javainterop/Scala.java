@@ -66,6 +66,7 @@ public final class Scala {
    *
    * @return an empty Map if the input is null.
    */
+  @SuppressWarnings("unchecked")
   public static <K, V> scala.collection.immutable.Map<K, V> asImmutableMap(
       java.util.Map<K, V> jMap
   ) {
