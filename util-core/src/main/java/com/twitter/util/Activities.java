@@ -43,18 +43,19 @@ public final class Activities {
   /**
    * @see com.twitter.util.Activity$#pending()
    */
-  @SuppressWarnings("unchecked")
-  public static <T> Activity<T> newPendingActivity() {
-    return (Activity<T>) Activity$.MODULE$.pending();
-  }
+  //unavailable in dotty: https://github.com/lampepfl/dotty/issues/8936
+  //@SuppressWarnings("unchecked")
+  // public static <T> Activity<T> newPendingActivity() {
+  //  return (Activity<T>) Activity$.MODULE$.pending();
+  //}
 
   /**
    * @see com.twitter.util.Activity$#exception(Throwable)
    */
-  @SuppressWarnings("unchecked")
-  public static <T> Activity<T> newFailedActivity(Throwable throwable) {
-    return (Activity<T>) Activity$.MODULE$.exception(throwable);
-  }
+  //@SuppressWarnings("unchecked")
+  //public static <T> Activity<T> newFailedActivity(Throwable throwable) {
+  //  return (Activity<T>) Activity$.MODULE$.exception(throwable);
+  //}
 
   /**
    * Checks whether the given {@code state} is a value activity state.
