@@ -16,6 +16,7 @@ import javax.management.{
 import javax.naming.OperationNotSupportedException
 import scala.jdk.CollectionConverters._
 import scala.language.reflectiveCalls
+import scala.reflect.Selectable.reflectiveSelectable
 
 class Hotspot extends Jvm {
   private[this] val epoch =
