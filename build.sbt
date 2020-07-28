@@ -76,7 +76,7 @@ def jdk11GcJavaOptions: Seq[String] = {
 
 val defaultProjectSettings = Seq(
   scalaVersion := "2.12.11",
-  crossScalaVersions := Seq("2.11.12", "2.12.11", "2.13.1")
+  crossScalaVersions := Seq("2.11.12", "2.12.11", "2.13.1", "0.26.0-RC1")
 )
 
 val baseSettings = Seq(
@@ -92,15 +92,15 @@ val baseSettings = Seq(
     "org.scalatest" %% "scalatest" % "3.1.2" % "test",
     "org.scalatestplus" %% "junit-4-12" % "3.1.2.0" % "test",
     "org.scalatestplus" %% "mockito-1-10" % "3.1.0.0" % "test"
-  ),
+  ).map(_.withDottyCompat(scalaVersion.value)),
   fork in Test := true, // We have to fork to get the JavaOptions
   // Workaround for cross building HealthyQueue.scala, which is not compatible between
   // 2.12- with 2.13+.
   unmanagedSourceDirectories in Compile += {
     val sourceDir = (sourceDirectory in Compile).value
     CrossVersion.partialVersion(scalaVersion.value) match {
-      case Some((2, n)) if n >= 13 => sourceDir / "scala-2.13+"
-      case _ => sourceDir / "scala-2.12-"
+      case Some((2, n)) if n <= 12 => sourceDir / "scala-2.12-"
+      case _ => sourceDir / "scala-2.13+"
     }
   },
   ScoverageKeys.coverageHighlighting := true,
@@ -117,6 +117,7 @@ val baseSettings = Seq(
     "-Xlint:-missing-interpolator",
     "-Yrangepos"
   ),
+  scalacOptions ++= Seq("-source:3.0-migration", "-rewrite").filter(_ => isDotty.value),
   // Note: Use -Xlint rather than -Xlint:unchecked when TestThriftStructure
   // warnings are resolved
   javacOptions ++= Seq("-Xlint:unchecked", "-source", "1.8", "-target", "1.8"),
@@ -294,10 +295,10 @@ lazy val utilCore = Project(
     libraryDependencies ++= Seq(
       caffeineLib % "test",
       scalacheckLib,
-      "org.scala-lang" % "scala-reflect" % scalaVersion.value,
+      //"org.scala-lang" % "scala-reflect" % scalaVersion.value,
       "org.scala-lang.modules" %% "scala-parser-combinators" % "1.1.2",
       "org.scalatestplus" %% "scalacheck-1-14" % "3.1.2.0" % "test"
-    ),
+    ).map(_.withDottyCompat(scalaVersion.value)),
     resourceGenerators in Compile += Def.task {
       val projectName = name.value
       val file = resourceManaged.value / "com" / "twitter" / projectName / "build.properties"
@@ -349,7 +350,7 @@ lazy val utilReflect = Project(
       "asm" % "asm-util" % "3.3.1",
       "asm" % "asm-commons" % "3.3.1",
       "cglib" % "cglib" % "2.2.2"
-    )
+    ).map(_.withDottyCompat(scalaVersion.value))
   ).dependsOn(utilCore)
 
 lazy val utilHashing = Project(
@@ -362,7 +363,7 @@ lazy val utilHashing = Project(
     libraryDependencies ++= Seq(
       scalacheckLib,
       "org.scalatestplus" %% "scalacheck-1-14" % "3.1.2.0" % "test"
-    )
+    ).map(_.withDottyCompat(scalaVersion.value))
   ).dependsOn(utilCore % "test")
 
 lazy val utilIntellij = Project(
@@ -444,7 +445,7 @@ lazy val utilSecurity = Project(
     libraryDependencies ++= Seq(
       scalacheckLib,
       "org.scalatestplus" %% "scalacheck-1-14" % "3.1.2.0" % "test"
-    )
+    ).map(_.withDottyCompat(scalaVersion.value))
   ).dependsOn(utilCore, utilLogging)
 
 lazy val utilStats = Project(
@@ -454,7 +455,7 @@ lazy val utilStats = Project(
     sharedSettings
   ).settings(
     name := "util-stats",
-    libraryDependencies ++= Seq(
+    libraryDependencies ++= (Seq(
       caffeineLib,
       jsr305Lib,
       scalacheckLib,
@@ -466,7 +467,7 @@ lazy val utilStats = Project(
         case _ =>
           Seq()
       }
-    }
+    }).map(_.withDottyCompat(scalaVersion.value))
   ).dependsOn(utilCore, utilLint)
 
 lazy val utilRouting = Project(
@@ -490,7 +491,7 @@ lazy val utilTest = Project(
       "org.scalatest" %% "scalatest" % "3.1.2",
       "org.scalatestplus" %% "junit-4-12" % "3.1.2.0",
       "org.scalatestplus" %% "mockito-1-10" % "3.1.0.0"
-    )
+    ).map(_.withDottyCompat(scalaVersion.value))
   ).dependsOn(utilCore, utilLogging)
 
 lazy val utilThrift = Project(
@@ -505,7 +506,7 @@ lazy val utilThrift = Project(
       slf4jApi % "provided",
       "com.fasterxml.jackson.core" % "jackson-core" % jacksonVersion,
       "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion
-    )
+    ).map(_.withDottyCompat(scalaVersion.value))
   ).dependsOn(utilCodec)
 
 lazy val utilTunable = Project(
@@ -519,7 +520,7 @@ lazy val utilTunable = Project(
       "com.fasterxml.jackson.core" % "jackson-core" % jacksonVersion,
       "com.fasterxml.jackson.core" % "jackson-databind" % jacksonVersion,
       "com.fasterxml.jackson.module" %% "jackson-module-scala" % jacksonVersion exclude ("com.google.guava", "guava")
-    )
+    ).map(_.withDottyCompat(scalaVersion.value))
   ).dependsOn(utilApp, utilCore)
 
 lazy val utilZk = Project(

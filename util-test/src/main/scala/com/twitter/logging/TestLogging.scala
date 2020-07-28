@@ -30,7 +30,7 @@ trait TestLogging extends BeforeAndAfter { self: WordSpec =>
 
   private val logger = Logger.get("")
   private var oldLevel: jlogging.Level = _
-
+/* depends on scalactic.source.Position macro
   before {
     oldLevel = logger.getLevel()
     logger.setLevel(logLevel)
@@ -41,7 +41,7 @@ trait TestLogging extends BeforeAndAfter { self: WordSpec =>
     logger.clearHandlers()
     logger.setLevel(oldLevel)
   }
-
+*/
   private var traceHandler = new StringHandler(BareFormatter, None)
 
   /**
@@ -73,7 +73,9 @@ trait TestLogging extends BeforeAndAfter { self: WordSpec =>
    * Verify that the logger set up with `traceLogger` has received a log line with the given
    * substring somewhere inside it.
    */
+  /* need scalactic.source.Position macro
   def mustLog(substring: String): org.scalatest.Assertion = {
     assert(logLines().filter { _ contains substring }.size > 0)
   }
+  */
 }

@@ -65,8 +65,10 @@ class InMemoryStatsReceiver extends StatsReceiver with WithHistogramDetails {
   val gauges: mutable.Map[Seq[String], () => Float] =
     new ConcurrentHashMap[Seq[String], () => Float]().asScala
 
+  /* dealbreaker! Workaround?
   override def counter(name: String*): ReadableCounter =
     counter(CounterSchema(this.metricBuilder().withName(name)))
+    */
 
   /**
    * Creates a [[ReadableCounter]] of the given `name`.
@@ -93,10 +95,10 @@ class InMemoryStatsReceiver extends StatsReceiver with WithHistogramDetails {
       override def toString: String =
         s"Counter(${schema.metricBuilder.name.mkString("/")}=${apply()})"
     }
-
+/* dealbreaker! Workaround?
   override def stat(name: String*): ReadableStat =
     stat(HistogramSchema(this.metricBuilder().withName(name)))
-
+*/
   /**
    * Creates a [[ReadableStat]] of the given `name`.
    */

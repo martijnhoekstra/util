@@ -40,7 +40,8 @@ class JsonThriftSerializer extends ThriftSerializer {
 
   override def fromBytes(obj: TBase[_, _], bytes: Array[Byte]): Unit = {
     val binarySerializer = new BinaryThriftSerializer
-    val newObj = new MappingJsonFactory().createParser(bytes).readValueAs(obj.getClass)
+    val clazz = obj.getClass.asInstanceOf[Class[TBase[_, _]]]
+    val newObj = new MappingJsonFactory().createParser(bytes).readValueAs(clazz)
     binarySerializer.fromBytes(obj, binarySerializer.toBytes(newObj.asInstanceOf[TBase[_, _]]))
   }
 }
