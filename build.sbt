@@ -103,6 +103,13 @@ val baseSettings = Seq(
       case _ => sourceDir / "scala-2.13+"
     }
   },
+  unmanagedSourceDirectories in Compile += {
+    val sourceDir = (sourceDirectory in Compile).value
+    CrossVersion.partialVersion(scalaVersion.value) match {
+      case Some((2, _)) => sourceDir / "scala2"
+      case _ => sourceDir / "scala3"
+    }
+  },
   ScoverageKeys.coverageHighlighting := true,
   resolvers +=
     "Sonatype OSS Snapshots" at "https://oss.sonatype.org/content/repositories/snapshots",
