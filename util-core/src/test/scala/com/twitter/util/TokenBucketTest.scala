@@ -1,9 +1,9 @@
 package com.twitter.util
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import com.twitter.conversions.DurationOps._
 
-class TokenBucketTest extends FunSuite {
+class TokenBucketTest extends AnyFunSuite {
   test("a leaky bucket is leaky") {
     Time.withCurrentTimeFrozen { tc =>
       val b = TokenBucket.newLeakyBucket(3.seconds, 0, Stopwatch.timeMillis)

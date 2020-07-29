@@ -1,9 +1,9 @@
 package com.twitter.concurrent
 
-import org.scalatest.WordSpec
+import org.scalatest.wordspec.AnyWordSpec
 import com.twitter.util.Return
 
-class TxTest extends WordSpec {
+class TxTest extends AnyWordSpec {
   "Tx.twoParty" should {
     "commit when everything goes dandy" in {
       val (stx, rtx) = Tx.twoParty(123)

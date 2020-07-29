@@ -1,10 +1,10 @@
 package com.twitter.app
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import com.twitter.util.{Duration, Time}
 import java.time.LocalTime
 
-class FlaggableTest extends FunSuite {
+class FlaggableTest extends AnyFunSuite {
 
   test("Flaggable: parse booleans") {
     assert(Flaggable.ofBoolean.parse("true"))

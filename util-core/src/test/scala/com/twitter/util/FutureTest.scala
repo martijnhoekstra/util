@@ -8,7 +8,7 @@ import org.mockito.Mockito.{never, times, verify, when}
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.stubbing.Answer
 import org.scalacheck.{Arbitrary, Gen}
-import org.scalatest.WordSpec
+import org.scalatest.wordspec.AnyWordSpec
 import org.scalatestplus.mockito.MockitoSugar
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import scala.jdk.CollectionConverters._
@@ -38,7 +38,7 @@ private object FutureTest {
   }
 }
 
-class FutureTest extends WordSpec with MockitoSugar with ScalaCheckDrivenPropertyChecks {
+class FutureTest extends AnyWordSpec with MockitoSugar with ScalaCheckDrivenPropertyChecks {
   import FutureTest._
 
   implicit class FutureMatcher[A](future: Future[A]) {

@@ -1,7 +1,7 @@
 package com.twitter.util.capturepoints
 
 import com.twitter.util.{Await, Future, FuturePool, Promise}
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
 /**
  * A trivial unit test used for demonstrating the value of async stacktraces.
@@ -10,7 +10,7 @@ import org.scalatest.FunSuite
  * to see the difference in the actual stacktrace versus the IDE's synthetic
  * one.
  */
-class Demo extends FunSuite {
+class Demo extends AnyFunSuite {
 
   test("async stack traces are rad") {
     val promise = new Promise[Int]()

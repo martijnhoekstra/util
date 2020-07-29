@@ -1,9 +1,9 @@
 package com.twitter.hashing
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
-class HashableTest extends FunSuite with ScalaCheckDrivenPropertyChecks {
+class HashableTest extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
 
   private[this] val algorithms = Seq(
     Hashable.CRC32_ITU,

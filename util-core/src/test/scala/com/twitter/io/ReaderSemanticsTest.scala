@@ -5,10 +5,10 @@ import com.twitter.conversions.StorageUnitOps._
 import com.twitter.conversions.DurationOps._
 import com.twitter.util.{Future, Return, Await, Throw}
 import java.io.ByteArrayInputStream
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import scala.util.Random
 
-abstract class ReaderSemanticsTest[A] extends FunSuite {
+abstract class ReaderSemanticsTest[A] extends AnyFunSuite {
   def createReader(): Reader[A]
 
   def loopAndCheck(reader: Reader[A], onClose: Future[StreamTermination]): Future[Unit] = {

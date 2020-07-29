@@ -11,7 +11,7 @@ import java.util
 import java.util.concurrent.{Callable, CountDownLatch, ExecutorService, Executors}
 import java.util.concurrent.{Future => JFuture}
 import java.util.Random
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatestplus.mockito.MockitoSugar
 
 // These traits correspond to files in:
@@ -51,7 +51,7 @@ class LoadServiceDeadlockImpl extends LoadServiceDeadlock {
     UsesLoadService.lsd
 }
 
-class LoadServiceTest extends FunSuite with MockitoSugar {
+class LoadServiceTest extends AnyFunSuite with MockitoSugar {
 
   test("LoadService should apply[T] and return a set of instances of T") {
     assert(LoadService[LoadServiceRandomInterface]().nonEmpty)

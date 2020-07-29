@@ -2,10 +2,10 @@ package com.twitter.util
 
 import java.util.concurrent.atomic.{AtomicInteger, AtomicReference}
 import java.util.concurrent.{CountDownLatch, Executors}
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import scala.collection.mutable
 
-class EventTest extends FunSuite {
+class EventTest extends AnyFunSuite {
 
   test("pub/sub while active") {
     val e = Event[Int]()

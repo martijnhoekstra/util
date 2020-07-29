@@ -89,7 +89,7 @@ val baseSettings = Seq(
     // See https://www.scala-sbt.org/0.13/docs/Testing.html#JUnit
     "com.novocode" % "junit-interface" % "0.11" % "test",
     "org.mockito" % "mockito-all" % "1.10.19" % "test",
-    "org.scalatest" %% "scalatest" % "3.1.2" % "test",
+    "org.scalatest" %% "scalatest" % "3.2.0" % "test",
     "org.scalatestplus" %% "junit-4-12" % "3.1.2.0" % "test",
     "org.scalatestplus" %% "mockito-1-10" % "3.1.0.0" % "test"
   ),
@@ -487,7 +487,7 @@ lazy val utilTest = Project(
     name := "util-test",
     libraryDependencies ++= Seq(
       "org.mockito" % "mockito-all" % "1.10.19",
-      "org.scalatest" %% "scalatest" % "3.1.2",
+      "org.scalatest" %% "scalatest" % "3.2.0",
       "org.scalatestplus" %% "junit-4-12" % "3.1.2.0",
       "org.scalatestplus" %% "mockito-1-10" % "3.1.0.0"
     )

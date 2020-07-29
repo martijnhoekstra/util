@@ -2,9 +2,11 @@ package com.twitter.finagle.stats
 
 import com.twitter.util.{Future, Await}
 
-import org.scalatest.{Matchers, FunSuite}
 
-class BroadcastStatsReceiverTest extends FunSuite with Matchers {
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.funsuite.AnyFunSuite
+
+class BroadcastStatsReceiverTest extends AnyFunSuite with Matchers {
 
   test("counter") {
     val recv1 = new InMemoryStatsReceiver

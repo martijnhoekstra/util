@@ -1,10 +1,10 @@
 package com.twitter.util
 
 import com.twitter.conversions.DurationOps._
-import org.scalatest.WordSpec
+import org.scalatest.wordspec.AnyWordSpec
 import scala.collection.mutable
 
-class PoolTest extends WordSpec {
+class PoolTest extends AnyWordSpec {
 
   private[this] def await[T](f: Awaitable[T]): T =
     Await.result(f, 2.seconds)

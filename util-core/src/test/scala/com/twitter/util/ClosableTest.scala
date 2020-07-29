@@ -1,11 +1,11 @@
 package com.twitter.util
 
 import com.twitter.conversions.DurationOps._
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatest.concurrent.{Eventually, IntegrationPatience}
 import scala.language.reflectiveCalls
 
-class ClosableTest extends FunSuite with Eventually with IntegrationPatience {
+class ClosableTest extends AnyFunSuite with Eventually with IntegrationPatience {
 
   // Workaround methods for dealing with Scala compiler warnings:
   //

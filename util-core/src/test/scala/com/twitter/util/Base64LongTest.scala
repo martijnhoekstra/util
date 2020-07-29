@@ -4,7 +4,7 @@ import com.twitter.util.Base64Long.{fromBase64, StandardBase64Alphabet, toBase64
 import org.scalacheck.Arbitrary
 import org.scalacheck.Arbitrary.arbitrary
 import org.scalacheck.Gen
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
 object Base64LongTest {
@@ -52,7 +52,7 @@ object Base64LongTest {
   }
 }
 
-class Base64LongTest extends FunSuite with ScalaCheckDrivenPropertyChecks {
+class Base64LongTest extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
   import Base64LongTest._
 
   private[this] def forAllLongs(f: (Alphabet, Long) => Unit): Unit = {

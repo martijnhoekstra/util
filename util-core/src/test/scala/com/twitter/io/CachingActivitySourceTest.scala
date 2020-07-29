@@ -1,10 +1,10 @@
 package com.twitter.io
 
 import com.twitter.util.Activity
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import scala.util.Random
 
-class CachingActivitySourceTest extends FunSuite {
+class CachingActivitySourceTest extends AnyFunSuite {
 
   test("CachingActivitySource") {
     val cache = new CachingActivitySource[String](new ActivitySource[String] {

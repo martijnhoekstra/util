@@ -2,11 +2,11 @@ package com.twitter.util
 
 import java.util.concurrent.atomic.AtomicReference
 import org.scalacheck.Arbitrary.arbitrary
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 import scala.collection.mutable
 
-class VarTest extends FunSuite with ScalaCheckDrivenPropertyChecks {
+class VarTest extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
 
   // Workaround methods for dealing with Scala compiler warnings:
   //

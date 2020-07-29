@@ -3,10 +3,10 @@ package com.twitter.io
 import java.lang.{Double => JDouble, Float => JFloat}
 import java.nio.charset.StandardCharsets
 import org.scalacheck.Gen
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import org.scalatestplus.scalacheck.ScalaCheckDrivenPropertyChecks
 
-class ByteReaderTest extends FunSuite with ScalaCheckDrivenPropertyChecks {
+class ByteReaderTest extends AnyFunSuite with ScalaCheckDrivenPropertyChecks {
   import ByteReader._
 
   def readerWith(bytes: Byte*): ByteReader = ByteReader(Buf.ByteArray.Owned(bytes.toArray))

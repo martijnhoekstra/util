@@ -1,10 +1,10 @@
 package com.twitter.concurrent
 
 import com.twitter.util.{Await, Awaitable, Duration, Return, Throw}
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import scala.collection.immutable.Queue
 
-class AsyncQueueTest extends FunSuite {
+class AsyncQueueTest extends AnyFunSuite {
 
   private def await[T](t: Awaitable[T]): T = Await.result(t, Duration.fromSeconds(5))
 

@@ -1,7 +1,7 @@
 package com.twitter.util.capturepoints
 
 import java.lang.reflect.Method
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 import scala.xml.XML
 
 /**
@@ -15,7 +15,7 @@ import scala.xml.XML
  * In the case that the [Insert class-name] or [Capture class-name] has been changed or
  * doesn't exist, this file will fail to compile.
  */
-class TwitterFuturesCapturePointsTest extends FunSuite {
+class TwitterFuturesCapturePointsTest extends AnyFunSuite {
 
   /**
    *  extract [methodName] from `Class[_]`
